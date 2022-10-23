@@ -12,7 +12,7 @@ typedef struct O_color O_color;
 
 class Object {
 	public:
-		Object() {};
+		Object(int x = 0, int y = 0, int w = 0, int h = 0);
 		~Object() {};
 		void render(SDL_Renderer* renderer);
 		void set_color(int r, int g, int b, int a);

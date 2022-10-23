@@ -26,3 +26,10 @@ void Object::set_color(int r, int g, int b, int a)
 	this->color.a = a;
 }
 
+Object::Object(int x, int y, int w, int h)
+{
+	this->x = x;
+	this->y = y;
+	this->w = w;
+	this->h = h;
+}

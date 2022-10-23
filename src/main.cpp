@@ -10,8 +10,9 @@ int main (int argc, char** argv)
 {
 	App* app = new App();
 	app->initSDL();
-	Object* object = new Object();
-	object->x = 20;
+	Object* object = new Object(200);
+	// object->x = 20; already in constructor
+	// specs are optional, will default to 0
 	object->y = 20;
 	object->w = 20;
 	object->h = 20;
