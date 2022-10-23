@@ -1,0 +1,38 @@
+name: test pipeline CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: install SDL2
+      run: |
+        git clone https://github.com/libsdl-org/SDL
+        cd SDL
+        mkdir build
+        cd build
+        ../configure
+        make
+        sudo make install
+
+    - name: make unit-tests
+      run: make tests
+
+    - name: Upload a Test Build Artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: test_artifact
+        path: test/bin/test
+
+    - name: Running test
+      run: |
+        chmod +x test/bin/test
+        test/bin/test
+      shell: bash
