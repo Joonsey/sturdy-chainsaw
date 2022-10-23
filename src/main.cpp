@@ -1,32 +1,29 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
+
 #include "app.hpp"
-
-
-
-class Object{
-	public:
-		Object();
-		~Object();
-		int x;
-		int y;
-		int sx;
-		int sy;
-};
-
+#include "object.hpp"
 
 
 int main (int argc, char** argv)
 {
 	App* app = new App();
 	app->initSDL();
+	Object* object = new Object();
+	object->x = 20;
+	object->y = 20;
+	object->w = 20;
+	object->h = 20;
+	object->set_color(255, 0, 0, 0);
 
 	while (1)
 	{
 		app->prepareScene();
 		app->input();
+		object->render(app->renderer);
 		app->presentScene();
+
 
 		SDL_Delay(16);
 	}
