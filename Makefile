@@ -5,12 +5,13 @@ SRC=src
 TEST=test
 SRCS=$(wildcard $(SRC)/*.cpp)
 TESTS=$(wildcard $(TEST)/*.cpp)
+SRCS_NOT_MAIN=$(filter-out $(SRC)/main.cpp, $(wildcard $(SRC)/*.cpp))
 
 main:
-	$(CC) -o $(BIN)/main $(LIBS) $(SRCS) 
+	$(CC) -o $(BIN)/main $(LIBS) $(SRCS)
 
-test:
-	$(CC) -o $(TEST)/bin/test $(LIBS) $(TEST)
+tests:
+	$(CC) -o $(TEST)/bin/test $(LIBS) $(TESTS) $(SRCS_NOT_MAIN)
 
 clean:
 	rm $(BIN)/*
