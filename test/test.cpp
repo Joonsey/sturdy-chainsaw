@@ -52,13 +52,58 @@ void Sprite_init_test()
 	tester->is_equal(sprite->w == 25, "expecting sprite w == 25, got "+std::to_string(sprite->w));
 }
 
+void Rect_colision_test()
+{
+	Rect * object = new Rect(0, 0, 30, 30);
+	Rect * second_object = new Rect(20, 0, 30, 29);
+	tester->is_equal(object->coliding_with_other_object(second_object), "expecting sprites to collide");
+	tester->is_equal(Object::objects_colide(object, second_object), "expecting rects to collide using static method");
+	tester->is_equal(!object->coliding_with_other_object(new Object(40, 40, 30, 30)), "expecting to NOT collide with rect");
+	tester->is_equal(!object->coliding_with_other_object(new Object(-40, 0, 30, 30)), "expecting to NOT collide with rect");
+	tester->is_equal(second_object->coliding_with_other_object(new Object(15, 10, 30, 30)), "expecting to collide with rect");
+}
+
+void Sprite_colision_test()
+{
+	SDL_Texture* texture;
+	Sprite * object = new Sprite(texture, 0, 0, 30, 30);
+	Sprite * second_object = new Sprite(texture, 20, 0, 30, 29);
+	tester->is_equal(object->coliding_with_other_object(second_object), "expecting sprites to collide");
+	tester->is_equal(Object::objects_colide(object, second_object), "expecting sprites to collide using static method");
+	tester->is_equal(!object->coliding_with_other_object(new Object(40, 40, 30, 30)), "expecting to NOT collide with sprite");
+	tester->is_equal(!object->coliding_with_other_object(new Object(-40, 0, 30, 30)), "expecting to NOT collide with sprite");
+	tester->is_equal(second_object->coliding_with_other_object(new Object(15, 10, 30, 30)), "expecting to collide with sprite");
+}
+
+void Object_colision_test()
+{
+	Object * object = new Object(0, 0, 30, 30);
+	Object * second_object = new Object(20, 0, 30, 29);
+	tester->is_equal(object->coliding_with_other_object(second_object), "expecting objects to collide");
+	tester->is_equal(Object::objects_colide(object, second_object), "expecting objects to collide using static method");
+	tester->is_equal(!object->coliding_with_other_object(new Object(40, 40, 30, 30)), "expecting to NOT collide with object");
+	tester->is_equal(!object->coliding_with_other_object(new Object(-40, 0, 30, 30)), "expecting to NOT collide with object");
+	tester->is_equal(second_object->coliding_with_other_object(new Object(15, 10, 30, 30)), "expecting to collide with object");
+}
+
+
 int main()
 {
 	//App_init_test();
-	Object_init_test();
+
 	Rect_color_behaviour();
+
+	// init tests
+	Object_init_test();
 	Rect_inherit_test();
 	Sprite_init_test();
+
+	// colision tests
+	Object_colision_test();
+	Rect_colision_test();
+	Sprite_colision_test();
+
+	//concluding test
 	tester->conclude();
 }
 
