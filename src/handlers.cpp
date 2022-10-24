@@ -1,8 +1,7 @@
 #include "handlers.hpp"
 #include <iostream>
 
-using namespace std;
-SDL_Texture* AssetHandler::load_texture(string relative_file_path)
+SDL_Texture* AssetHandler::load_texture(std::string relative_file_path)
 {
 	if (!!strlen(this->asset_path.c_str()))
 	{
