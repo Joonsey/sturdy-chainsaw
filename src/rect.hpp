@@ -4,10 +4,10 @@
 
 class Rect : public Object {
 	public:
-		Rect(int x = 0, int y = 0, int w = 0, int h = 0);
+		Rect(int = 0, int = 0, int = 0, int = 0);
 		~Rect() {};
-		void set_color(int r, int g, int b, int a);
-		void render(SDL_Renderer* renderer);
+		void set_color(int, int, int, int);
+		void render(SDL_Renderer*);
 		O_color color;
 };
 

@@ -1,7 +1,6 @@
 #pragma once
 #include <SDL2/SDL.h>
 
-
 struct O_color{
 	int r;
 	int g;

@@ -1,5 +1,5 @@
 CC=c++
-LIBS=
+LIBS=-lSDL2_image
 BIN=bin
 SRC=src
 TEST=test

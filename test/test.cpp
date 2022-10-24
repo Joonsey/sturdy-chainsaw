@@ -46,7 +46,7 @@ void Rect_inherit_test()
 void Sprite_init_test()
 {
 	SDL_Texture *texture;
-	Sprite * sprite = new Sprite(*texture, 255, 1, 25, 25);
+	Sprite * sprite = new Sprite(texture, 255, 1, 25, 25);
 	tester->is_equal(sprite->x == 255, "expecting sprite x == 255, got "+std::to_string(sprite->x));
 	tester->is_equal(sprite->y == 1, "expecting sprite y == 0, got "+std::to_string(sprite->y));
 	tester->is_equal(sprite->w == 25, "expecting sprite w == 25, got "+std::to_string(sprite->w));
