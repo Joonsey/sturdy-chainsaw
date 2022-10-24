@@ -29,6 +29,13 @@ jobs:
         make
         sudo make install
 
+    - name: install SDL2 images
+      run: |
+        git clone https://github.com/libsdl-org/SDL_image
+        cd SDL_image
+        ./configure
+        sudo make install
+
     - name: make unit-tests
       run: make tests
 
