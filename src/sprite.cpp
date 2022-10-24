@@ -1,9 +1,9 @@
 #include "sprite.hpp"
+#include <iostream>
 
-
-Sprite::Sprite(SDL_Texture &texture, int x, int y, int w, int h)
+Sprite::Sprite(SDL_Texture *texture, int x, int y, int w, int h)
 {
-	this->texture = &texture;
+	this->texture = texture;
 	this->x = x;
 	this->y = y;
 	this->w = w;
