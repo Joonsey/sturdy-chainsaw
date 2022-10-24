@@ -14,7 +14,7 @@ main: make-bin
 	$(CC) -o $(BIN)/main $(SRCS) $(sdl2-config) $(LIBS)
 
 tests: make-test-bin
-	$(CC) -o $(TEST)/bin/test $(SRCS) $(sdl2-config) $(LIBS)
+	$(CC) -o $(TEST)/bin/test $(SRCS_NOT_MAIN) $(TESTS) $(sdl2-config) $(LIBS)
 
 clean:
 	rm -r -f $(BIN)/* \
