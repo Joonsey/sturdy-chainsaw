@@ -21,10 +21,18 @@ int main (int argc, char** argv)
 	Rect* rect = new Rect(200, 200, 20, 20);
 	rect->set_color(255, 230, 0, 0);
 
+
+	//colision test
+	Rect* red_rect = new Rect(20, 0, 30, 29);
+	red_rect->set_color(255,0,0,255);
+	Rect* green_rect = new Rect(15, 10, 30, 30);
+	green_rect->set_color(0,255,0,255);
 	while (1)
 	{
 		app->prepareScene();
 		app->input();
+		red_rect->render(app->renderer);
+		green_rect->render(app->renderer);
 		rect->render(app->renderer);
 		sprite->render(app->renderer);
 		app->presentScene();

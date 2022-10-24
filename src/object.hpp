@@ -14,6 +14,8 @@ class Object {
 	public:
 		Object(int x = 0, int y = 0, int w = 0, int h = 0);
 		~Object() {};
+		bool coliding_with_other_object(Object*);
+		static bool objects_colide(Object*, Object*);
 		int x;
 		int y;
 		int w;

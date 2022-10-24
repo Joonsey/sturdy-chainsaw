@@ -20,3 +20,26 @@ Object::Object(int x, int y, int w, int h)
 	this->w = w;
 	this->h = h;
 }
+
+bool Object::objects_colide(Object* first_object, Object* second_object)
+{
+
+	bool coliding = false;
+	if (
+			first_object->x < second_object->x + second_object->w &
+			first_object->x + first_object->w > second_object->x &
+			first_object->y < second_object->y + second_object->h &
+			first_object->y + first_object->h > second_object->y
+		)
+	{
+		coliding = true;
+	}
+
+	return coliding;
+}
+
+bool Object::coliding_with_other_object(Object * other_object)
+{
+	return objects_colide(this, other_object);
+}
+
