@@ -1,5 +1,5 @@
 CC=c++
-LIBS=-lSDL2_image
+LIBS=-L/usr/local/lib/ -lSDL2_image
 BIN=bin
 SRC=src
 TEST=test
