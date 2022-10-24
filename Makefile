@@ -7,12 +7,14 @@ SRCS=$(wildcard $(SRC)/*.cpp)
 TESTS=$(wildcard $(TEST)/*.cpp)
 SRCS_NOT_MAIN=$(filter-out $(SRC)/main.cpp, $(wildcard $(SRC)/*.cpp))
 
+sdl2-config= $$(sdl2-config --cflags --libs)
+
 
 main: make-bin
-	$(CC) -o $(BIN)/main $(LIBS) $(SRCS) `sdl2-config --cflags --libs`
+	$(CC) -o $(BIN)/main $(SRCS) $(sdl2-config) $(LIBS)
 
 tests: make-test-bin
-	$(CC) -o $(TEST)/bin/test $(LIBS) $(TESTS) $(SRCS_NOT_MAIN) `sdl2-config --cflags --libs`
+	$(CC) -o $(TEST)/bin/test $(SRCS) $(sdl2-config) $(LIBS)
 
 clean:
 	rm -r -f $(BIN)/* \
