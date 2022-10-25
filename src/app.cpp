@@ -11,6 +11,11 @@ void App::presentScene()
 	SDL_RenderPresent(this->renderer);
 }
 
+App::App(std::string title)
+{
+	this->title = title;
+}
+
 void App::input()
 {
 	SDL_Event event;
@@ -43,7 +48,7 @@ void App::initSDL()
 		exit(1);
 	}
 
-	this->window = SDL_CreateWindow("yey", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
+	this->window = SDL_CreateWindow(this->title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
 
 	if (!this->window)
 	{

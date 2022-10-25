@@ -1,10 +1,11 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include "defs.hpp"
+#include <string>
 
 class App{
 	public:
-		App() {};
+		App(std::string);
 		~App() {};
 		void initSDL();
 		void input();
@@ -12,4 +13,6 @@ class App{
 		void presentScene();
 		SDL_Renderer *renderer;
 		SDL_Window *window;
+	private:
+		std::string title;
 };

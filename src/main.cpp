@@ -10,7 +10,7 @@
 
 int main (int argc, char** argv)
 {
-	App* app = new App();
+	App* app = new App("*unix > windows");
 	app->initSDL();
 
 	AssetHandler * asset_handler = new AssetHandler(app->renderer);
