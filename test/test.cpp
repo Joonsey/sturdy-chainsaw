@@ -14,7 +14,7 @@ Tester * tester = new Tester();
 void App_init_test()
 {
 	// CANT RUN THIS IN CI AS RUNNERS CANT PRODUCE A RENDERER
-	App * app = new App();
+	App * app = new App("tests");
 	app->initSDL();
 	tester->is_equal(!!app, "expecting app to exist");
 	tester->is_equal(!!app->renderer, "expecting app renderer to exist");
