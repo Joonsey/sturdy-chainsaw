@@ -6,6 +6,8 @@
 #include "../src/object.hpp"
 #include "../src/sprite.hpp"
 #include "../src/rect.hpp"
+#include "../src/handlers.hpp"
+#include "../src/particle.hpp"
 
 Tester * tester = new Tester();
 
@@ -86,6 +88,34 @@ void Object_colision_test()
 	tester->is_equal(second_object->coliding_with_other_object(new Object(15, 10, 30, 30)), "expecting to collide with object");
 }
 
+void Particle_test()
+{
+	Particle* particle = new Particle();
+	Particle_Rect* particle_rect = new Particle_Rect();
+
+	particle_rect->x = 20;
+
+	tester->is_equal(!!particle, "expecting particle to exits");
+	tester->is_equal(!!particle_rect, "expecting particle_rect to exits");
+	tester->is_equal(particle_rect->x = 20, "expecting particle_rect to inherit x and change");
+	tester->is_equal(!particle_rect->y, "expecting inherited values to be 0 by default");
+	tester->is_equal(particle->reduce_time_to_live(2.f) < 0, "expecting lifetime to be than 0 if never produced");
+
+}
+
+void ParticleHandler_test()
+{
+	ParticleHandler * handler = new ParticleHandler();
+	tester->is_equal(handler->particles.size() == 0, "expecting particles array to be 0 when declared");
+	handler->add_particle(handler->spawn_particle());
+	tester->is_equal(handler->particles.size() == 1, "expecting particles array to be 1 when spawning new particle and adding it");
+	Particle_Rect* particle = handler->spawn_particle();
+	tester->is_equal(!!particle, "expecting particle to exist when spawned by handler");
+	tester->is_equal(handler->particles.size() == 1, "expecting particle NOT to be added unless specified");
+	handler->add_particle(particle);
+	tester->is_equal(handler->particles.size() == 2, "expecting particle to be added even using just a pointer");
+
+}
 
 int main()
 {
@@ -102,6 +132,10 @@ int main()
 	Object_colision_test();
 	Rect_colision_test();
 	Sprite_colision_test();
+
+	// particle tests
+	Particle_test();
+	ParticleHandler_test();
 
 	//concluding test
 	tester->conclude();
