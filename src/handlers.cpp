@@ -23,3 +23,31 @@ std::string AssetHandler::get_asset_path()
 {
 	return this->asset_path;
 }
+
+
+
+Particle_Rect * ParticleHandler::spawn_particle(){
+	return new Particle_Rect(rand() % 100 + 400, rand() % 100, 24, 24);
+}
+
+void ParticleHandler::add_particle(Particle_Rect * particle)
+{
+	this->particles.push_back(particle);
+}
+
+void ParticleHandler::update()
+{
+	for (Particle_Rect* particle : this->particles)
+	{
+		particle->x -= rand() % 2;
+		particle->y += rand() % 2;
+	}
+}
+
+void ParticleHandler::render(SDL_Renderer* renderer)
+{
+	for (Particle_Rect* particle : this->particles)
+	{
+		particle->render(renderer);
+	}
+}
