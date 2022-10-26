@@ -7,10 +7,13 @@
 #include "sprite.hpp"
 #include "rect.hpp"
 #include "handlers.hpp"
+#include "config.hpp"
 
 int main (int argc, char** argv)
 {
-	App* app = new App("*unix > windows");
+	string title = parse_settings_from_file("src/config");
+
+	App* app = new App(title);
 	app->initSDL();
 
 	AssetHandler * asset_handler = new AssetHandler(app->renderer);
