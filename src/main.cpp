@@ -7,10 +7,28 @@
 #include "sprite.hpp"
 #include "rect.hpp"
 #include "handlers.hpp"
+#include "config.hpp"
 
 int main (int argc, char** argv)
 {
-	App* app = new App("*unix > windows");
+	//checking args
+	char* current_arg;
+	bool no_config = false;
+	for( int x= 0; x < argc; x++ )
+	{
+		current_arg = argv[x];
+		check_config(current_arg, no_config);
+	};
+
+	if (!no_config)
+	{
+		cout << "loading configs.." << endl;
+		ConfigHandler * configHandler = new ConfigHandler();
+		configHandler->parse_settings_from_file("src/config");
+
+	}
+
+	App* app = new App("yoo");
 	app->initSDL();
 
 	AssetHandler * asset_handler = new AssetHandler(app->renderer);

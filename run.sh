@@ -1,3 +1,2 @@
-!#/bin/sh
 
-make && bin/main
+make && bin/main --no-config
