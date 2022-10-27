@@ -3,5 +3,12 @@
 #include <fstream>
 
 using namespace std;
-string parse_settings_from_file(string);
+
+class ConfigHandler
+{
+	public:
+		string parse_settings_from_file(string);
+	private:
+		string parse_line(string);
+};
 
