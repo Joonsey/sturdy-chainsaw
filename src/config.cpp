@@ -1,6 +1,11 @@
 #include "config.hpp"
 #include <iostream>
 
+ConfigHandler::ConfigHandler()
+{
+	this->settings = new vector<string>();
+}
+
 void check_config(char* current_arg, bool &no_config)
 {
 	if (!no_config) {
@@ -40,7 +45,7 @@ string ConfigHandler::parse_settings_from_file(string file)
 		value = parse_line(buffer);
 	}
 	config_file.close();
-	this->settings.push_back(value);
+	this->settings->push_back(value);
 	return value;
 }
 

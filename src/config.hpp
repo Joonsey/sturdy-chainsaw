@@ -11,8 +11,9 @@ void check_config(char* current_arg, bool &no_config);
 class ConfigHandler
 {
 	public:
+		ConfigHandler();
 		string parse_settings_from_file(string);
-		vector<string> settings;
+		vector<string>* settings;
 	private:
 		string parse_line(string);
 };

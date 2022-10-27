@@ -25,6 +25,7 @@ int main (int argc, char** argv)
 		cout << "loading configs.." << endl;
 		ConfigHandler * configHandler = new ConfigHandler();
 		configHandler->parse_settings_from_file("src/config");
+
 	}
 
 	App* app = new App("yoo");
