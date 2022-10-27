@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <vector>
 
+#include "defs.hpp"
+
 
 #include "particle.hpp"
 

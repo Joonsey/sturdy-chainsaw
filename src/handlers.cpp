@@ -37,10 +37,26 @@ void ParticleHandler::add_particle(Particle_Rect * particle)
 
 void ParticleHandler::update()
 {
+	//std::cout << this->particles.size() << std::endl;
+	//the size of the vector behaves as expected;
+	//shrinks dynamically upon cleanup
+	int i = 0;
 	for (Particle_Rect* particle : this->particles)
 	{
 		particle->x -= rand() % 2;
 		particle->y += rand() % 2;
+
+		// remove particle from memory if it outside the bounds of the screen
+
+		// this is bugged and the particles need to be compensated for their width and height
+		// todo: fix this
+		if (particle->x < 0 | particle->y < 0 | particle->y > SCREEN_HEIGHT | particle->x > SCREEN_WIDTH)
+		{
+			this->particles.erase(this->particles.begin()+i);
+			//std::cout << "free-ing particle" << std::endl;
+			//particle gets freed if conditions are met
+		}
+		i++;
 	}
 }
 
