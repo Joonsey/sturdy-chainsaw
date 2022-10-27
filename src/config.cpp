@@ -1,6 +1,14 @@
 #include "config.hpp"
+#include <iostream>
 
-static string parse_line(string line_buffer)
+void check_config(char* current_arg, bool &no_config)
+{
+	if (!no_config) {
+		no_config = !strcmp(current_arg, "--no-config");
+	}
+}
+
+string ConfigHandler::parse_line(string line_buffer)
 {
 	string value;
 	bool found;
@@ -19,7 +27,7 @@ static string parse_line(string line_buffer)
 	return value;
 }
 
-string parse_settings_from_file(string file)
+string ConfigHandler::parse_settings_from_file(string file)
 {
 	// todo
 	// value array with all values
@@ -32,6 +40,7 @@ string parse_settings_from_file(string file)
 		value = parse_line(buffer);
 	}
 	config_file.close();
+	this->settings.push_back(value);
 	return value;
 }
 
