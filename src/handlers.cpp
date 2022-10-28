@@ -37,26 +37,24 @@ void ParticleHandler::add_particle(Particle_Rect * particle)
 
 void ParticleHandler::update()
 {
-	//std::cout << this->particles.size() << std::endl;
-	//the size of the vector behaves as expected;
-	//shrinks dynamically upon cleanup
-	int i = 0;
-	for (Particle_Rect* particle : this->particles)
+
+	// only works due to being in ascending order
+	std::vector<int> indexes_to_remove;
+	for (int i = 0; i < this->particles.size(); i++)
 	{
-		particle->x -= rand() % 2;
-		particle->y += rand() % 2;
+		Particle_Rect* particle = this->particles[i];
+		particle->x -= rand() % 5+2;
+		particle->y += rand() % 5+2;
 
-		// remove particle from memory if it outside the bounds of the screen
-
-		// this is bugged and the particles need to be compensated for their width and height
-		// todo: fix this
-		if (particle->x < 0 | particle->y < 0 | particle->y > SCREEN_HEIGHT | particle->x > SCREEN_WIDTH)
+		if (particle->x + particle->w < 0 | particle->y + particle->h < 0 | particle->y > SCREEN_HEIGHT | particle->x > SCREEN_WIDTH)
 		{
-			this->particles.erase(this->particles.begin()+i);
-			//std::cout << "free-ing particle" << std::endl;
-			//particle gets freed if conditions are met
+			indexes_to_remove.push_back(i);
 		}
-		i++;
+	}
+	for (int i = 0; i < indexes_to_remove.size(); i++)
+	{
+		int index = indexes_to_remove[i];
+		this->particles.erase(this->particles.begin()+ index-i);
 	}
 }
 
