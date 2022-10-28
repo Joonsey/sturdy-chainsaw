@@ -8,6 +8,7 @@
 #include "../src/rect.hpp"
 #include "../src/handlers.hpp"
 #include "../src/particle.hpp"
+#include "../src/config.hpp"
 
 Tester * tester = new Tester();
 
@@ -117,6 +118,59 @@ void ParticleHandler_test()
 
 }
 
+// test for automatic cleanup up particles outside the viewbox
+void ParticleHandler_cleanup_test()
+{
+	ParticleHandler * handler = new ParticleHandler();
+	handler->add_particle(handler->spawn_particle());
+	handler->particles[0]->x = -40;
+	handler->update();
+	tester->is_equal(handler->particles.size() == 0, "expecting update to cleanup particles");
+	handler->add_particle(handler->spawn_particle());
+	tester->is_equal(handler->particles.size() == 1, "expecting size to increase normaly");
+	handler->particles[0]->x = -40;
+	tester->is_equal(handler->particles.size() == 1, "expecting no cleanup unless updated");
+	handler->update();
+	tester->is_equal(handler->particles.size() == 0, "expecting update to cleanup particles even after multiple changes  to the vector");
+	handler->particles.clear();
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->particles[0]->x = -40;
+	handler->particles[1]->x = -40;
+	handler->particles[2]->x = -40;
+	handler->update();
+	tester->is_equal(handler->particles.size() == 1, "expecting update to remove multiple but not all particles if eligible: got " + to_string(handler->particles.size()));
+	handler->particles.clear();
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->particles[0]->x = -40;
+	handler->particles[1]->x = -40;
+	handler->particles[2]->x = -40;
+	handler->particles[3]->x = -40;
+	handler->particles[4]->x = -40;
+	handler->particles[5]->x = -40;
+	handler->update();
+	tester->is_equal(handler->particles.size() == 0, "expecting update to remove multiple particles if eligible: got " + to_string(handler->particles.size()));
+	handler->particles.clear();
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->add_particle(handler->spawn_particle());
+	handler->particles[3]->x = -40;
+	handler->particles[1]->x = -40;
+	handler->particles[2]->x = -40;
+	handler->update();
+	tester->is_equal(handler->particles.size() == 3, "expecting update to remove multiple but not all particles even when they appear to be in random order: got " + to_string(handler->particles.size()));
+}
+
 int main()
 {
 	//App_init_test();
@@ -136,6 +190,7 @@ int main()
 	// particle tests
 	Particle_test();
 	ParticleHandler_test();
+	ParticleHandler_cleanup_test();
 
 	//concluding test
 	tester->conclude();

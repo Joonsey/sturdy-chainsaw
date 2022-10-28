@@ -24,7 +24,7 @@ int main (int argc, char** argv)
 	{
 		cout << "loading configs.." << endl;
 		ConfigHandler * configHandler = new ConfigHandler();
-		configHandler->parse_settings_from_file("src/config");
+		configHandler->parse_settings_from_file("config");
 
 	}
 
@@ -52,7 +52,7 @@ int main (int argc, char** argv)
 	//particle handler
 	ParticleHandler* particleHandler = new ParticleHandler();
 	particleHandler->add_particle(particle);
-	int interval = 100;
+	int interval = 10;
 	while (1)
 	{
 		interval --;
@@ -72,7 +72,7 @@ int main (int argc, char** argv)
 
 		if (interval < 0) {
 			particleHandler->add_particle(particleHandler->spawn_particle());
-			interval = 100;
+			interval = 10;
 		}
 
 
